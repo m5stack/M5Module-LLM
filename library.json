@@ -1,0 +1,20 @@
+{
+    "name": "M5Module-LLM",
+    "description": "Library for M5Module-LLM",
+    "keywords": "M5Stack,M5Module-LLM",
+    "authors": {
+        "name": "M5Stack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/M5Stack/M5Module-LLM.git"
+    },
+    "dependencies": {
+        "M5Unified": "*",
+        "M5GFX": "*",
+        "ArduinoJson": "*"
+    },
+    "version": "1.0.0",
+    "frameworks": "arduino",
+    "platforms": "espressif32"
+}
