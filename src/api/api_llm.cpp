@@ -32,7 +32,7 @@ String ApiLlm::setup(ApiLlmSetupConfig_t config, String request_id)
     }
 
     String llm_work_id;
-    bool is_time_out = _module_msg->sendCmdAndWaitToTakeMsg(
+    _module_msg->sendCmdAndWaitToTakeMsg(
         cmd.c_str(), request_id,
         [&llm_work_id](ResponseMsg_t& msg) {
             // Copy work id

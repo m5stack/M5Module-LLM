@@ -13,8 +13,8 @@ static const char* _cmd_reset =
     "{\"request_id\":\"sys_reset\",\"work_id\":\"sys\",\"action\":\"reset\",\"object\":\"None\",\"data\":\"None\"}";
 static const char* _cmd_reboot =
     "{\"request_id\":\"sys_reboot\",\"work_id\":\"sys\",\"action\":\"reboot\",\"object\":\"None\",\"data\":\"None\"}";
-static const char* _cmd_ls_mode =
-    "{\"request_id\":\"sys_lsmode\",\"work_id\":\"sys\",\"action\":\"lsmode\",\"object\":\"None\",\"data\":\"None\"}";
+// static const char* _cmd_ls_mode =
+//     "{\"request_id\":\"sys_lsmode\",\"work_id\":\"sys\",\"action\":\"lsmode\",\"object\":\"None\",\"data\":\"None\"}";
 
 void ApiSys::init(ModuleMsg* moduleMsg)
 {

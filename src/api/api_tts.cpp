@@ -30,7 +30,7 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
     }
 
     String work_id;
-    bool is_time_out = _module_msg->sendCmdAndWaitToTakeMsg(
+    _module_msg->sendCmdAndWaitToTakeMsg(
         cmd.c_str(), request_id,
         [&work_id](ResponseMsg_t& msg) {
             // Copy work id
@@ -61,7 +61,7 @@ int ApiTts::inference(String work_id, String input, uint32_t timeout, String req
     }
 
     int ret          = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
-    bool is_time_out = _module_msg->sendCmdAndWaitToTakeMsg(
+    _module_msg->sendCmdAndWaitToTakeMsg(
         cmd.c_str(), request_id,
         [&ret](ResponseMsg_t& msg) {
             // Copy error code
