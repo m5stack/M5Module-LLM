@@ -60,7 +60,7 @@ int ApiTts::inference(String work_id, String input, uint32_t timeout, String req
         return MODULE_LLM_OK;
     }
 
-    int ret          = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
+    int ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
     _module_msg->sendCmdAndWaitToTakeMsg(
         cmd.c_str(), request_id,
         [&ret](ResponseMsg_t& msg) {
