@@ -5,9 +5,6 @@
  */
 #include "M5ModuleLLM.h"
 #include <ArduinoJson.h>
-#include <mooncake_log.h>
-
-using namespace mooncake;
 
 bool M5ModuleLLM::begin(Stream* serialPort)
 {
