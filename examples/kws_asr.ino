@@ -20,7 +20,10 @@ void setup()
     M5.Display.setTextSize(2);
     M5.Display.setTextScroll(true);
 
-    Serial2.begin(115200, SERIAL_8N1, 16, 17);
+    Serial2.begin(115200, SERIAL_8N1, 16, 17);  // Basic
+    // Serial2.begin(115200, SERIAL_8N1, 13, 14);  // Core2
+    // Serial2.begin(115200, SERIAL_8N1, 18, 17);  // CoreS3
+
     module_llm.begin(&Serial2);
 
     M5.Display.printf(">> Check ModuleLLM connection..\n");

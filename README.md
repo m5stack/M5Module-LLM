@@ -2,13 +2,13 @@
 
 ## Overview
 
-### SKU:M140
+### SKU: M140
 
-Description of the product
+
 
 ## Related Link
 
-- [Document & Datasheet](https://docs.m5stack.com/en/unit/product_Link)
+- [Document & Datasheet](https://docs.m5stack.com/en/module/Module-LLM)
 
 ## Required Libraries:
 
@@ -16,4 +16,4 @@ Description of the product
 
 ## License
 
-- [Product Name- MIT](LICENSE)
+- [Module-LLM- MIT](LICENSE)
