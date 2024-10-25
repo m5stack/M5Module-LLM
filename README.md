@@ -4,7 +4,7 @@
 
 ### SKU: M140
 
-
+Module LLM is an integrated offline large language model (LLM) inference module, designed specifically for terminal devices that require efficient and intelligent interaction.
 
 ## Related Link
 
