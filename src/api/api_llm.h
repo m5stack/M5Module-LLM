@@ -24,7 +24,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module llm, return work_id
+     * @brief Setup module LLM, return LLM work_id
      *
      * @param config
      * @param request_id
@@ -32,8 +32,26 @@ public:
      */
     String setup(ApiLlmSetupConfig_t config = ApiLlmSetupConfig_t(), String request_id = "llm_setup");
 
+    /**
+     * @brief Inference input data by module LLM
+     *
+     * @param work_id
+     * @param input
+     * @param request_id
+     * @return int
+     */
     int inference(String work_id, String input, String request_id = "llm_inference");
 
+    /**
+     * @brief Inference input data by module LLM, and wait inference result
+     *
+     * @param work_id
+     * @param input
+     * @param onResult On inference result callback
+     * @param timeout
+     * @param request_id
+     * @return int
+     */
     int inferenceAndWaitResult(String work_id, String input, std::function<void(String&)> onResult,
                                uint32_t timeout = 5000, String request_id = "llm_inference");
 

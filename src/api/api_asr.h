@@ -25,7 +25,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module asr, return work_id
+     * @brief Setup module ASR, return ASR work_id
      *
      * @param config
      * @param request_id

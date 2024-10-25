@@ -59,7 +59,12 @@ public:
         _module_comm->sendCmd(cmd);
     }
 
+    /**
+     * @brief Module response message list
+     *
+     */
     std::vector<ResponseMsg_t> responseMsgList;
+
     void addMsgFromResponse(const char* response);
     void clearMsg(String request_id);
     bool takeMsg(String request_id, std::function<void(ResponseMsg_t& msg)> onMsg);

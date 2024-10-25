@@ -22,7 +22,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module tts, return work_id
+     * @brief Setup module TTS, return TTS work_id
      *
      * @param config
      * @param request_id
@@ -31,7 +31,7 @@ public:
     String setup(ApiTtsSetupConfig_t config = ApiTtsSetupConfig_t(), String request_id = "tts_setup");
 
     /**
-     * @brief Inference input data
+     * @brief Inference input data by TTS module
      *
      * @param work_id
      * @param input

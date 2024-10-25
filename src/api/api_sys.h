@@ -13,8 +13,26 @@ class ApiSys {
 public:
     void init(ModuleMsg* moduleMsg);
 
+    /**
+     * @brief Check is module system available
+     *
+     * @return int
+     */
     int ping();
+
+    /**
+     * @brief Reset module
+     *
+     * @param waitResetFinish
+     * @return int
+     */
     int reset(bool waitResetFinish = true);
+
+    /**
+     * @brief Reboot module
+     *
+     * @return int
+     */
     int reboot();
 
 private:

@@ -22,7 +22,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module kws, return work_id
+     * @brief Setup module KWS, return KWS work_id
      *
      * @param config
      * @param request_id
