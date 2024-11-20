@@ -44,8 +44,7 @@ int ApiSys::reset(bool waitResetFinish)
     if (waitResetFinish) {
         ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
         _module_msg->responseMsgList.clear();
-        _module_msg->waitAndTakeMsg(
-            "0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 15000);
+        _module_msg->waitAndTakeMsg("0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 15000);
     }
     return ret;
 }

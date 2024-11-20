@@ -24,12 +24,11 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
         JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
-        for (const String& str : config.input)
-        {
+        for (const String& str : config.input) {
             inputArray.add(str);
         }
-        doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["enaudio"]         = config.enaudio;
+        doc["data"]["enoutput"] = config.enoutput;
+        doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);
     }
 

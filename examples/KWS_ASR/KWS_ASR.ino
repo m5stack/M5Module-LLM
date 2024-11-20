@@ -56,7 +56,7 @@ void setup()
     M5.Display.printf(">> Setup asr..\n");
     m5_module_llm::ApiAsrSetupConfig_t asr_config;
     asr_config.input = {"sys.pcm", kws_work_id};
-    asr_work_id = module_llm.asr.setup(asr_config);
+    asr_work_id      = module_llm.asr.setup(asr_config);
 
     M5.Display.printf(">> Setup ok\n>> Say \"%s\" to wakeup\n", wake_up_keyword.c_str());
 }

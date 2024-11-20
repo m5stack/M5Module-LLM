@@ -65,9 +65,9 @@ public:
     m5_module_llm::ApiTts tts;
 
     /**
-    * @brief MELOTTS module api set
-    *
-    */
+     * @brief MELOTTS module api set
+     *
+     */
     m5_module_llm::ApiMelotts melotts;
 
     /**
