@@ -23,11 +23,13 @@ String ApiLlm::setup(ApiLlmSetupConfig_t config, String request_id)
         doc["object"]                  = "llm.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
-        doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["enkws"]           = config.enkws;
-        doc["data"]["max_token_len"]   = config.max_token_len;
-        doc["data"]["prompt"]          = config.prompt;
+        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
+        for (const String& str : config.input) {
+            inputArray.add(str);
+        }
+        doc["data"]["enoutput"]      = config.enoutput;
+        doc["data"]["max_token_len"] = config.max_token_len;
+        doc["data"]["prompt"]        = config.prompt;
         serializeJson(doc, cmd);
     }
 

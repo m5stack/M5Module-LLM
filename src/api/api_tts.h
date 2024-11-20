@@ -10,11 +10,11 @@
 namespace m5_module_llm {
 
 struct ApiTtsSetupConfig_t {
-    String model           = "single_speaker_english_fast";
-    String response_format = "tts.base64.wav";
-    String input           = "tts.utf-8.stream";
-    bool enoutput          = true;
-    bool enkws             = true;
+    String model              = "single_speaker_english_fast";
+    String response_format    = "sys.pcm";
+    std::vector<String> input = {"sys.pcm"};
+    bool enoutput             = false;
+    bool enaudio              = true;
 };
 
 class ApiTts {

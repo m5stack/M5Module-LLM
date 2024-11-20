@@ -23,9 +23,12 @@ String ApiKws::setup(ApiKwsSetupConfig_t config, String request_id)
         doc["object"]                  = "kws.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
-        doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["kws"]             = config.kws;
+        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
+        for (const String& str : config.input) {
+            inputArray.add(str);
+        }
+        doc["data"]["enoutput"] = config.enoutput;
+        doc["data"]["kws"]      = config.kws;
         serializeJson(doc, cmd);
     }
 

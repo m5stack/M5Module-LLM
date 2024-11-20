@@ -23,12 +23,14 @@ String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id)
         doc["object"]                  = "asr.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
-        doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["enkws"]           = config.enkws;
-        doc["data"]["rule1"]           = config.rule1;
-        doc["data"]["rule2"]           = config.rule2;
-        doc["data"]["rule3"]           = config.rule3;
+        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
+        for (const String& str : config.input) {
+            inputArray.add(str);
+        }
+        doc["data"]["enoutput"] = config.enoutput;
+        doc["data"]["rule1"]    = config.rule1;
+        doc["data"]["rule2"]    = config.rule2;
+        doc["data"]["rule3"]    = config.rule3;
         serializeJson(doc, cmd);
     }
 

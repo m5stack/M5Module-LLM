@@ -11,6 +11,7 @@
 #include "api/api_llm.h"
 #include "api/api_audio.h"
 #include "api/api_tts.h"
+#include "api/api_melotts.h"
 #include "api/api_kws.h"
 #include "api/api_asr.h"
 
@@ -62,6 +63,12 @@ public:
      *
      */
     m5_module_llm::ApiTts tts;
+
+    /**
+     * @brief MELOTTS module api set
+     *
+     */
+    m5_module_llm::ApiMelotts melotts;
 
     /**
      * @brief KWS module api set
@@ -163,6 +170,7 @@ private:
         String asr;
         String llm;
         String tts;
+        String melotts;
     };
 
     WorkId_t _work_id;

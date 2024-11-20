@@ -23,9 +23,12 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
         doc["object"]                  = "tts.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
-        doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["enkws"]           = config.enkws;
+        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
+        for (const String& str : config.input) {
+            inputArray.add(str);
+        }
+        doc["data"]["enoutput"] = config.enoutput;
+        doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);
     }
 
@@ -50,7 +53,7 @@ int ApiTts::inference(String work_id, String input, uint32_t timeout, String req
         doc["action"]         = "inference";
         doc["object"]         = "tts.utf-8.stream";
         doc["data"]["delta"]  = input;
-        doc["data"]["index"]  = 1;
+        doc["data"]["index"]  = 0;
         doc["data"]["finish"] = true;
         serializeJson(doc, cmd);
     }

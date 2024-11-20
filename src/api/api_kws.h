@@ -10,11 +10,11 @@
 namespace m5_module_llm {
 
 struct ApiKwsSetupConfig_t {
-    String kws             = "HELLO";
-    String model           = "sherpa-onnx-kws-zipformer-gigaspeech-3.3M-2024-01-01";
-    String response_format = "kws.bool";
-    String input           = "sys.pcm";
-    bool enoutput          = true;
+    String kws                = "HELLO";
+    String model              = "sherpa-onnx-kws-zipformer-gigaspeech-3.3M-2024-01-01";
+    String response_format    = "kws.bool";
+    std::vector<String> input = {"sys.pcm"};
+    bool enoutput             = true;
 };
 
 class ApiKws {
