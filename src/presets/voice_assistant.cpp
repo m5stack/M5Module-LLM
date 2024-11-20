@@ -37,7 +37,11 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
     }
 
     _debug("setup module asr..");
-    _work_id.asr = _m5_module_llm->asr.setup();
+    {
+        ApiAsrSetupConfig_t config;
+        config.input = {"sys.pcm", _work_id.kws};
+        _work_id.asr = _m5_module_llm->asr.setup(config);
+    }
     if (_work_id.asr.isEmpty()) {
         return MODULE_LLM_ERROR_NONE;
     }
@@ -45,7 +49,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
     _debug("setup module llm..");
     {
         ApiLlmSetupConfig_t config;
-        config.input  = _work_id.asr;
+        config.input  = {_work_id.asr, _work_id.kws};
         config.prompt = prompt;
         _work_id.llm  = _m5_module_llm->llm.setup(config);
     }
@@ -56,7 +60,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
     _debug("setup module tts..");
     {
         ApiTtsSetupConfig_t config;
-        config.input = _work_id.llm;
+        config.input = {_work_id.llm, _work_id.kws};
         _work_id.tts = _m5_module_llm->tts.setup(config);
     }
     if (_work_id.tts.isEmpty()) {

@@ -11,12 +11,12 @@ namespace m5_module_llm {
 
 struct ApiLlmSetupConfig_t {
     String prompt;
-    String model           = "qwen2.5-0.5b";
-    String response_format = "llm.utf-8.stream";
-    String input           = "llm.utf-8.stream";
-    bool enoutput          = true;
-    bool enkws             = true;
-    int max_token_len      = 127;
+    String model              = "qwen2.5-0.5B-prefill-20e";
+    String response_format    = "llm.utf-8.stream";
+    std::vector<String> input = {"llm.utf-8.stream"};
+    bool enoutput             = true;
+    int max_token_len         = 127;
+    // int max_token_len      = 512;
 };
 
 class ApiLlm {
