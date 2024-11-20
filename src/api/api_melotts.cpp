@@ -28,7 +28,7 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id)
             inputArray.add(str);
         }
         doc["data"]["enoutput"] = config.enoutput;
-        doc["data"]["enoutput"] = config.enaudio;
+        doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);
     }
 

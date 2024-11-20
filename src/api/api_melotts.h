@@ -10,11 +10,11 @@
 namespace m5_module_llm {
 
 struct ApiMelottsSetupConfig_t {
-    String model              = "";
-    String response_format    = "tts.base64.wav";
+    String model              = "melotts_zh-cn";
+    String response_format    = "sys.pcm";
     std::vector<String> input = {"sys.pcm"};
     bool enoutput             = false;
-    bool enaudio              = false;
+    bool enaudio              = true;
 };
 
 class ApiMelotts {
