@@ -39,7 +39,7 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id)
             // Copy work id
             work_id = msg.work_id;
         },
-        10000);
+        15000);
     return work_id;
 }
 
@@ -51,7 +51,7 @@ int ApiMelotts::inference(String work_id, String input, uint32_t timeout, String
         doc["request_id"]     = request_id;
         doc["work_id"]        = work_id;
         doc["action"]         = "inference";
-        doc["object"]         = "melotts.utf-8.stream";
+        doc["object"]         = "tts.utf-8.stream";
         doc["data"]["delta"]  = input;
         doc["data"]["index"]  = 0;
         doc["data"]["finish"] = true;

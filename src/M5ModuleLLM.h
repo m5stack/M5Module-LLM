@@ -14,6 +14,7 @@
 #include "api/api_melotts.h"
 #include "api/api_kws.h"
 #include "api/api_asr.h"
+#include "api/api_yolo.h"
 
 class M5ModuleLLM {
 public:
@@ -83,6 +84,12 @@ public:
     m5_module_llm::ApiAsr asr;
 
     /**
+     * @brief YOLO module api set
+     *
+     */
+    m5_module_llm::ApiYolo yolo;
+
+    /**
      * @brief MSG module to handle module response message
      *
      */
@@ -100,8 +107,10 @@ private:
 typedef std::function<void(void)> OnKeywordDetectedCallback_t;
 typedef std::function<void(String data, bool isFinish, int index)> OnAsrDataInputCallback_t;
 typedef std::function<void(String data, bool isFinish, int index)> OnLlmDataInputCallback_t;
+typedef std::function<void(String data, bool isFinish, int index)> OnYoloDataInputCallback_t;
 typedef std::function<void(String rawData)> OnAsrDataInputRawCallback_t;
 typedef std::function<void(String rawData)> OnLlmDataInputRawCallback_t;
+typedef std::function<void(String rawData)> OnYoloDataInputRawCallback_t;
 
 /**
  * @brief Voice assistant preset base on class M5ModuleLLM
