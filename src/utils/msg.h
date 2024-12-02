@@ -59,6 +59,10 @@ public:
         _module_comm->sendCmd(cmd);
     }
 
+    inline void sendRaw(const uint8_t* data, size_t& raw_len)
+    {
+        _module_comm->sendRaw(data, raw_len);
+    }
     /**
      * @brief Module response message list
      *

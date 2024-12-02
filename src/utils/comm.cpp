@@ -26,6 +26,11 @@ void ModuleComm::sendCmd(const char* cmd)
     _serial->print(cmd);
 }
 
+void ModuleComm::sendRaw(const uint8_t* data, size_t& raw_len)
+{
+    _serial->write(data, raw_len);
+}
+
 ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 {
     Respond_t ret;

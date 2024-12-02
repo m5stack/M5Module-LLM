@@ -24,6 +24,7 @@ public:
 
     bool init(Stream* serialPort);
     void sendCmd(const char* cmd);
+    void sendRaw(const uint8_t* data, size_t& raw_len);
     Respond_t getResponse(uint32_t timeout = 0xFFFFFFFF);
 
 private:
