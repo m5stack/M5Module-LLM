@@ -14,6 +14,7 @@ struct ApiAsrSetupConfig_t {
     String response_format    = "asr.utf-8.stream";
     std::vector<String> input = {"sys.pcm"};
     bool enoutput             = true;
+    bool enkws                = true;
     float rule1               = 2.4;
     float rule2               = 1.2;
     float rule3               = 30.0;

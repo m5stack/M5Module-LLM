@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "api_asr.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
@@ -23,14 +24,19 @@ String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id)
         doc["object"]                  = "asr.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
-        for (const String& str : config.input) {
-            inputArray.add(str);
+        doc["data"]["enoutput"]        = config.enoutput;
+        doc["data"]["enkws"]           = config.enkws;
+        doc["data"]["rule1"]           = config.rule1;
+        doc["data"]["rule2"]           = config.rule2;
+        doc["data"]["rule3"]           = config.rule3;
+        if (!llm_version) {
+            doc["data"]["input"] = config.input[0];
+        } else {
+            JsonArray inputArray = doc["data"]["input"].to<JsonArray>();
+            for (const String& str : config.input) {
+                inputArray.add(str);
+            }
         }
-        doc["data"]["enoutput"] = config.enoutput;
-        doc["data"]["rule1"]    = config.rule1;
-        doc["data"]["rule2"]    = config.rule2;
-        doc["data"]["rule3"]    = config.rule3;
         serializeJson(doc, cmd);
     }
 

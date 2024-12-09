@@ -26,6 +26,16 @@ public:
      * @param waitResetFinish
      * @return int
      */
+
+    int version();
+
+    /**
+     * @brief Check version
+     *
+     * @param waitCheckFinish
+     * @return int
+     */
+
     int reset(bool waitResetFinish = true);
 
     /**

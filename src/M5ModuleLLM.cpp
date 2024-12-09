@@ -23,6 +23,7 @@ bool M5ModuleLLM::begin(Stream* serialPort)
 
 bool M5ModuleLLM::checkConnection()
 {
+    llm_version = (sys.version() == MODULE_LLM_OK);
     return sys.ping() == MODULE_LLM_OK;
 }
 

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "api_kws.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
@@ -23,12 +24,16 @@ String ApiKws::setup(ApiKwsSetupConfig_t config, String request_id)
         doc["object"]                  = "kws.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
-        for (const String& str : config.input) {
-            inputArray.add(str);
+        doc["data"]["enoutput"]        = config.enoutput;
+        doc["data"]["kws"]             = config.kws;
+        if (!llm_version) {
+            doc["data"]["input"] = config.input[0];
+        } else {
+            JsonArray inputArray = doc["data"]["input"].to<JsonArray>();
+            for (const String& str : config.input) {
+                inputArray.add(str);
+            }
         }
-        doc["data"]["enoutput"] = config.enoutput;
-        doc["data"]["kws"]      = config.kws;
         serializeJson(doc, cmd);
     }
 

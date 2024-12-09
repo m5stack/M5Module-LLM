@@ -12,7 +12,7 @@ namespace m5_module_llm {
 struct ApiMelottsSetupConfig_t {
     String model              = "melotts_zh-cn";
     String response_format    = "sys.pcm";
-    std::vector<String> input = {"tts.utf-8,stream"};
+    std::vector<String> input = {"tts.utf-8.stream"};
     bool enoutput             = false;
     bool enaudio              = true;
 };
