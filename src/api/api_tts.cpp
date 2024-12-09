@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "api_tts.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
@@ -23,12 +24,19 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
         doc["object"]                  = "tts.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
-        for (const String& str : config.input) {
-            inputArray.add(str);
+        doc["data"]["enoutput"]        = config.enoutput;
+        doc["data"]["enkws"]           = config.enkws;
+        doc["data"]["enaudio"]         = config.enaudio;
+        if (!llm_version) {
+            doc["data"]["response_format"] = "tts.base64.wav";
+            doc["data"]["input"]           = config.input[0];
+            doc["data"]["enoutput"]        = true;
+        } else {
+            JsonArray inputArray = doc["data"]["input"].to<JsonArray>();
+            for (const String& str : config.input) {
+                inputArray.add(str);
+            }
         }
-        doc["data"]["enoutput"] = config.enoutput;
-        doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);
     }
 

@@ -15,6 +15,7 @@ struct ApiLlmSetupConfig_t {
     String response_format    = "llm.utf-8.stream";
     std::vector<String> input = {"llm.utf-8.stream"};
     bool enoutput             = true;
+    bool enkws                = true;
     int max_token_len         = 127;
     // int max_token_len      = 512;
 };

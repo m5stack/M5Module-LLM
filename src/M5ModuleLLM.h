@@ -15,6 +15,7 @@
 #include "api/api_kws.h"
 #include "api/api_asr.h"
 #include "api/api_yolo.h"
+#include "api/api_version.h"
 
 class M5ModuleLLM {
 public:

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "../M5ModuleLLM.h"
+#include "../src/api/api_version.h"
 
 using namespace m5_module_llm;
 
@@ -59,11 +60,17 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
 
     _debug("setup module tts..");
     {
-        ApiTtsSetupConfig_t config;
-        config.input = {_work_id.llm, _work_id.kws};
-        _work_id.tts = _m5_module_llm->tts.setup(config);
+        if (!llm_version) {
+            ApiTtsSetupConfig_t config;
+            config.input = {_work_id.llm, _work_id.kws};
+            _work_id.tts = _m5_module_llm->tts.setup(config);
+        } else {
+            ApiMelottsSetupConfig_t config;
+            config.input     = {_work_id.llm, _work_id.kws};
+            _work_id.melotts = _m5_module_llm->melotts.setup(config);
+        }
     }
-    if (_work_id.tts.isEmpty()) {
+    if (_work_id.tts.isEmpty() && _work_id.melotts.isEmpty()) {
         return MODULE_LLM_ERROR_NONE;
     }
 
