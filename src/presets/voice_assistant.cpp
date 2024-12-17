@@ -31,7 +31,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt, Strin
     {
         ApiKwsSetupConfig_t config;
         config.kws   = wakeUpKeyword;
-        _work_id.kws = _m5_module_llm->kws.setup(config, "kws_setup",language);
+        _work_id.kws = _m5_module_llm->kws.setup(config, "kws_setup", language);
     }
     if (_work_id.kws.isEmpty()) {
         return MODULE_LLM_ERROR_NONE;
