@@ -29,7 +29,8 @@ public:
      * @param request_id
      * @return String
      */
-    String setup(ApiTtsSetupConfig_t config = ApiTtsSetupConfig_t(), String request_id = "tts_setup", String language = "en_US");
+    String setup(ApiTtsSetupConfig_t config = ApiTtsSetupConfig_t(), String request_id = "tts_setup",
+                 String language = "en_US");
 
     /**
      * @brief Inference input data by TTS module

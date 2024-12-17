@@ -28,7 +28,8 @@ public:
      * @param request_id
      * @return String
      */
-    String setup(ApiMelottsSetupConfig_t config = ApiMelottsSetupConfig_t(), String request_id = "melotts_setup",  String language = "en_US");
+    String setup(ApiMelottsSetupConfig_t config = ApiMelottsSetupConfig_t(), String request_id = "melotts_setup",
+                 String language = "en_US");
 
     /**
      * @brief Inference input data by TTS module

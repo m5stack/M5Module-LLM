@@ -34,8 +34,7 @@ String ApiKws::setup(ApiKwsSetupConfig_t config, String request_id, String langu
                 inputArray.add(str);
             }
         }
-        if (language == "zh_CN")
-            doc["data"]["model"] = "sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01";
+        if (language == "zh_CN") doc["data"]["model"] = "sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01";
         serializeJson(doc, cmd);
     }
 

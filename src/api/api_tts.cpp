@@ -37,8 +37,7 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String langu
                 inputArray.add(str);
             }
         }
-        if (language == "zh_CN")
-            doc["data"]["model"] = "single_speaker_fast";
+        if (language == "zh_CN") doc["data"]["model"] = "single_speaker_fast";
         serializeJson(doc, cmd);
     }
 

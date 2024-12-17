@@ -27,8 +27,7 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id, Stri
         for (const String& str : config.input) {
             inputArray.add(str);
         }
-        if (language == "zh_CN")
-            doc["data"]["model"] = "melotts_zh-cn";
+        if (language == "zh_CN") doc["data"]["model"] = "melotts_zh-cn";
         doc["data"]["enoutput"] = config.enoutput;
         doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);

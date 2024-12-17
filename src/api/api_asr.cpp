@@ -37,8 +37,7 @@ String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id, String langu
                 inputArray.add(str);
             }
         }
-        if (language == "zh_CN")
-            doc["data"]["model"] = "sherpa-ncnn-streaming-zipformer-zh-14M-2023-02-23";
+        if (language == "zh_CN") doc["data"]["model"] = "sherpa-ncnn-streaming-zipformer-zh-14M-2023-02-23";
         serializeJson(doc, cmd);
     }
 
