@@ -13,7 +13,7 @@ void ApiTts::init(ModuleMsg* moduleMsg)
     _module_msg = moduleMsg;
 }
 
-String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
+String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String language)
 {
     String cmd;
     {
@@ -37,6 +37,8 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
                 inputArray.add(str);
             }
         }
+        if (language == "zh_CN")
+            doc["data"]["model"] = "single_speaker_fast";
         serializeJson(doc, cmd);
     }
 
