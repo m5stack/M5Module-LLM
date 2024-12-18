@@ -9,12 +9,17 @@
 
 M5ModuleLLM module_llm;
 String tts_work_id;
+String language;
 
 void setup()
 {
     M5.begin();
     M5.Display.setTextSize(2);
     M5.Display.setTextScroll(true);
+    // M5.Display.setFont(&fonts::efontCN_12);  // Support Chinese display
+
+    language = "en_US";
+    // language = "zh_CN";
 
     /* Init module serial port */
     Serial2.begin(115200, SERIAL_8N1, 16, 17);  // Basic
@@ -42,7 +47,8 @@ void setup()
 
     /* Setup TTS module and save returned work id */
     M5.Display.printf(">> Setup tts..\n\n");
-    tts_work_id = module_llm.tts.setup();
+    m5_module_llm::ApiTtsSetupConfig_t tts_config;
+    tts_work_id = module_llm.tts.setup(tts_config, "tts_setup", language);
 }
 
 void loop()
@@ -51,6 +57,7 @@ void loop()
     static int i = 0;
     i++;
     std::string text = std::to_string(i) + " plus " + std::to_string(i) + " equals " + std::to_string(i + i) + ".";
+    // std::string text = std::to_string(i) + " 加 " + std::to_string(i) + " 等于 " + std::to_string(i + i) + ".";
 
     M5.Display.setTextColor(TFT_GREEN);
     M5.Display.printf("<< %s\n\n", text.c_str());
