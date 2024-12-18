@@ -130,7 +130,7 @@ public:
      * @param prompt
      * @return int
      */
-    int begin(String wakeUpKeyword = "HELLO", String prompt = "");
+    int begin(String wakeUpKeyword = "HELLO", String prompt = "", String language = "en_US");
 
     /**
      * @brief Update voice assistant preset, trigger callbacks

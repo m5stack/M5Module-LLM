@@ -13,7 +13,7 @@ void ApiAsr::init(ModuleMsg* moduleMsg)
     _module_msg = moduleMsg;
 }
 
-String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id)
+String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id, String language)
 {
     String cmd;
     {
@@ -37,6 +37,7 @@ String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id)
                 inputArray.add(str);
             }
         }
+        if (language == "zh_CN") doc["data"]["model"] = "sherpa-ncnn-streaming-zipformer-zh-14M-2023-02-23";
         serializeJson(doc, cmd);
     }
 

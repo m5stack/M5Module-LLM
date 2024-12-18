@@ -14,6 +14,7 @@ M5ModuleLLM_VoiceAssistant voice_assistant(&module_llm);
 void on_asr_data_input(String data, bool isFinish, int index)
 {
     M5.Display.setTextColor(TFT_GREEN, TFT_BLACK);
+    //    M5.Display.setFont(&fonts::efontCN_16); //Support Chinese display
     M5.Display.printf(">> %s\n", data.c_str());
 
     /* If ASR data is finish */
@@ -59,6 +60,7 @@ void setup()
     /* Begin voice assistant preset */
     M5.Display.printf(">> Begin voice assistant..\n");
     int ret = voice_assistant.begin("HELLO");
+    //    int ret = voice_assistant.begin("你好你好", "", "zh_CN"); //Chinese kws and asr
     if (ret != MODULE_LLM_OK) {
         while (1) {
             M5.Display.setTextColor(TFT_RED);

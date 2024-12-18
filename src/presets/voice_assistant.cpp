@@ -10,7 +10,7 @@ using namespace m5_module_llm;
 
 #define _debug(format, ...) printf("[\033[1;32mVoiceAssistant\033[0m] " format "\n", ##__VA_ARGS__)
 
-int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
+int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt, String language)
 {
     // Check connection
     if (!_m5_module_llm->checkConnection()) {
@@ -31,7 +31,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
     {
         ApiKwsSetupConfig_t config;
         config.kws   = wakeUpKeyword;
-        _work_id.kws = _m5_module_llm->kws.setup(config);
+        _work_id.kws = _m5_module_llm->kws.setup(config, "kws_setup", language);
     }
     if (_work_id.kws.isEmpty()) {
         return MODULE_LLM_ERROR_NONE;
@@ -41,7 +41,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
     {
         ApiAsrSetupConfig_t config;
         config.input = {"sys.pcm", _work_id.kws};
-        _work_id.asr = _m5_module_llm->asr.setup(config);
+        _work_id.asr = _m5_module_llm->asr.setup(config, "asr_setup", language);
     }
     if (_work_id.asr.isEmpty()) {
         return MODULE_LLM_ERROR_NONE;
@@ -63,11 +63,11 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt)
         if (!llm_version) {
             ApiTtsSetupConfig_t config;
             config.input = {_work_id.llm, _work_id.kws};
-            _work_id.tts = _m5_module_llm->tts.setup(config);
+            _work_id.tts = _m5_module_llm->tts.setup(config, "tts_setup", language);
         } else {
             ApiMelottsSetupConfig_t config;
             config.input     = {_work_id.llm, _work_id.kws};
-            _work_id.melotts = _m5_module_llm->melotts.setup(config);
+            _work_id.melotts = _m5_module_llm->melotts.setup(config, "tts_setup", language);
         }
     }
     if (_work_id.tts.isEmpty() && _work_id.melotts.isEmpty()) {

@@ -31,7 +31,8 @@ public:
      * @param request_id
      * @return String
      */
-    String setup(ApiAsrSetupConfig_t config = ApiAsrSetupConfig_t(), String request_id = "asr_setup");
+    String setup(ApiAsrSetupConfig_t config = ApiAsrSetupConfig_t(), String request_id = "asr_setup",
+                 String language = "en_US");
 
 private:
     ModuleMsg* _module_msg = nullptr;

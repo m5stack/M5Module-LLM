@@ -28,7 +28,8 @@ public:
      * @param request_id
      * @return String
      */
-    String setup(ApiKwsSetupConfig_t config = ApiKwsSetupConfig_t(), String request_id = "kws_setup");
+    String setup(ApiKwsSetupConfig_t config = ApiKwsSetupConfig_t(), String request_id = "kws_setup",
+                 String language = "en_US");
 
 private:
     ModuleMsg* _module_msg = nullptr;
