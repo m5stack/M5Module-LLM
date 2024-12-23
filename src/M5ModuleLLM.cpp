@@ -18,6 +18,7 @@ bool M5ModuleLLM::begin(Stream* serialPort)
     kws.init(&msg);
     asr.init(&msg);
     yolo.init(&msg);
+    camera.init(&msg);
     return true;
 }
 

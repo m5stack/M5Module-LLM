@@ -15,6 +15,7 @@
 #include "api/api_kws.h"
 #include "api/api_asr.h"
 #include "api/api_yolo.h"
+#include "api/api_camera.h"
 #include "api/api_version.h"
 
 class M5ModuleLLM {
@@ -59,6 +60,12 @@ public:
      *
      */
     m5_module_llm::ApiAudio audio;
+
+    /**
+     * @brief Camera module api set
+     *
+     */
+    m5_module_llm::ApiCamera camera;
 
     /**
      * @brief TTS module api set
