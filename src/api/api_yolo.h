@@ -10,7 +10,7 @@
 namespace m5_module_llm {
 struct ApiYoloSetupConfig_t {
     String model              = "yolo11n";
-    String response_format    = "yolo.yolobox.stream";
+    String response_format    = "yolo.box.stream";
     std::vector<String> input = {"yolo.jpeg.base64"};
     bool enoutput             = true;
 };

@@ -6,7 +6,6 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include <M5ModuleLLM.h>
-#include <ArduinoJson.h>
 
 M5ModuleLLM module_llm;
 
