@@ -10,11 +10,12 @@
 namespace m5_module_llm {
 
 struct ApiTtsSetupConfig_t {
-    String model           = "single_speaker_english_fast";
-    String response_format = "tts.base64.wav";
-    String input           = "tts.utf-8.stream";
-    bool enoutput          = true;
-    bool enkws             = true;
+    String model              = "single_speaker_english_fast";
+    String response_format    = "sys.pcm";
+    std::vector<String> input = {"tts.utf-8.stream"};
+    bool enoutput             = false;
+    bool enaudio              = true;
+    bool enkws                = true;
 };
 
 class ApiTts {
@@ -28,7 +29,8 @@ public:
      * @param request_id
      * @return String
      */
-    String setup(ApiTtsSetupConfig_t config = ApiTtsSetupConfig_t(), String request_id = "tts_setup");
+    String setup(ApiTtsSetupConfig_t config = ApiTtsSetupConfig_t(), String request_id = "tts_setup",
+                 String language = "en_US");
 
     /**
      * @brief Inference input data by TTS module

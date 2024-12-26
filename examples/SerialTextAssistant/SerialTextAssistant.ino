@@ -19,6 +19,7 @@ void setup()
     M5.begin();
     M5.Display.setTextSize(2);
     M5.Display.setTextScroll(true);
+    // M5.Display.setFont(&fonts::efontCN_12);  // Support Chinese display
 
     /* Init usb serial */
     CommSerialPort.begin(115200);
@@ -45,7 +46,9 @@ void setup()
 
     /* Setup LLM module and save returned work id */
     M5.Display.printf(">> Setup llm..\n");
-    llm_work_id = module_llm.llm.setup();
+    m5_module_llm::ApiLlmSetupConfig_t llm_config;
+    llm_config.max_token_len = 1023;
+    llm_work_id              = module_llm.llm.setup(llm_config);
 
     M5.Display.printf(">> Setup finish\n");
     M5.Display.printf(">> Try send your question via usb serial port\n");

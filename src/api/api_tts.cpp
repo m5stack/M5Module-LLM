@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "api_tts.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
@@ -12,7 +13,7 @@ void ApiTts::init(ModuleMsg* moduleMsg)
     _module_msg = moduleMsg;
 }
 
-String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
+String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String language)
 {
     String cmd;
     {
@@ -23,9 +24,20 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id)
         doc["object"]                  = "tts.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
         doc["data"]["enoutput"]        = config.enoutput;
         doc["data"]["enkws"]           = config.enkws;
+        doc["data"]["enaudio"]         = config.enaudio;
+        if (!llm_version) {
+            doc["data"]["response_format"] = "tts.base64.wav";
+            doc["data"]["input"]           = config.input[0];
+            doc["data"]["enoutput"]        = true;
+        } else {
+            JsonArray inputArray = doc["data"]["input"].to<JsonArray>();
+            for (const String& str : config.input) {
+                inputArray.add(str);
+            }
+        }
+        if (language == "zh_CN") doc["data"]["model"] = "single_speaker_fast";
         serializeJson(doc, cmd);
     }
 
@@ -50,7 +62,7 @@ int ApiTts::inference(String work_id, String input, uint32_t timeout, String req
         doc["action"]         = "inference";
         doc["object"]         = "tts.utf-8.stream";
         doc["data"]["delta"]  = input;
-        doc["data"]["index"]  = 1;
+        doc["data"]["index"]  = 0;
         doc["data"]["finish"] = true;
         serializeJson(doc, cmd);
     }

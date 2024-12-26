@@ -14,14 +14,19 @@ bool M5ModuleLLM::begin(Stream* serialPort)
     llm.init(&msg);
     audio.init(&msg);
     tts.init(&msg);
+    melotts.init(&msg);
     kws.init(&msg);
     asr.init(&msg);
+    yolo.init(&msg);
+    camera.init(&msg);
     return true;
 }
 
 bool M5ModuleLLM::checkConnection()
 {
-    return sys.ping() == MODULE_LLM_OK;
+    const bool result = (sys.ping() == MODULE_LLM_OK);
+    llm_version       = (sys.version() == MODULE_LLM_OK);
+    return result;
 }
 
 void M5ModuleLLM::update()

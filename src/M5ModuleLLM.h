@@ -11,8 +11,12 @@
 #include "api/api_llm.h"
 #include "api/api_audio.h"
 #include "api/api_tts.h"
+#include "api/api_melotts.h"
 #include "api/api_kws.h"
 #include "api/api_asr.h"
+#include "api/api_yolo.h"
+#include "api/api_camera.h"
+#include "api/api_version.h"
 
 class M5ModuleLLM {
 public:
@@ -58,10 +62,22 @@ public:
     m5_module_llm::ApiAudio audio;
 
     /**
+     * @brief Camera module api set
+     *
+     */
+    m5_module_llm::ApiCamera camera;
+
+    /**
      * @brief TTS module api set
      *
      */
     m5_module_llm::ApiTts tts;
+
+    /**
+     * @brief MELOTTS module api set
+     *
+     */
+    m5_module_llm::ApiMelotts melotts;
 
     /**
      * @brief KWS module api set
@@ -74,6 +90,12 @@ public:
      *
      */
     m5_module_llm::ApiAsr asr;
+
+    /**
+     * @brief YOLO module api set
+     *
+     */
+    m5_module_llm::ApiYolo yolo;
 
     /**
      * @brief MSG module to handle module response message
@@ -93,8 +115,10 @@ private:
 typedef std::function<void(void)> OnKeywordDetectedCallback_t;
 typedef std::function<void(String data, bool isFinish, int index)> OnAsrDataInputCallback_t;
 typedef std::function<void(String data, bool isFinish, int index)> OnLlmDataInputCallback_t;
+typedef std::function<void(String data, bool isFinish, int index)> OnYoloDataInputCallback_t;
 typedef std::function<void(String rawData)> OnAsrDataInputRawCallback_t;
 typedef std::function<void(String rawData)> OnLlmDataInputRawCallback_t;
+typedef std::function<void(String rawData)> OnYoloDataInputRawCallback_t;
 
 /**
  * @brief Voice assistant preset base on class M5ModuleLLM
@@ -113,7 +137,7 @@ public:
      * @param prompt
      * @return int
      */
-    int begin(String wakeUpKeyword = "HELLO", String prompt = "");
+    int begin(String wakeUpKeyword = "HELLO", String prompt = "", String language = "en_US");
 
     /**
      * @brief Update voice assistant preset, trigger callbacks
@@ -163,6 +187,7 @@ private:
         String asr;
         String llm;
         String tts;
+        String melotts;
     };
 
     WorkId_t _work_id;
