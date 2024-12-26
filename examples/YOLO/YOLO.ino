@@ -6,11 +6,20 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include <M5ModuleLLM.h>
-#include <ArduinoJson.h>
 
 M5ModuleLLM module_llm;
 String camera_work_id;
 String yolo_work_id;
+
+void clearDisplay()
+{
+    M5.Display.fillRect(40, 50, 270, 20, BLACK);
+    M5.Display.fillRect(150, 80, 60, 20, BLACK);
+    M5.Display.fillRect(40, 110, 40, 20, BLACK);
+    M5.Display.fillRect(40, 140, 40, 20, BLACK);
+    M5.Display.fillRect(40, 170, 40, 20, BLACK);
+    M5.Display.fillRect(40, 200, 40, 20, BLACK);
+}
 
 void setup()
 {
@@ -27,7 +36,10 @@ void setup()
     module_llm.begin(&Serial2);
 
     /* Make sure module is connected */
-    M5.Display.printf(">> Check ModuleLLM connection..\n");
+    M5.Display.setTextColor(ORANGE, BLACK);
+    M5.Display.setTextSize(2);
+    M5.Display.setTextDatum(middle_center);
+    M5.Display.drawString("Check ModuleLLM connection..", M5.Display.width() / 2, M5.Display.height() / 2);
     while (1) {
         if (module_llm.checkConnection()) {
             break;
@@ -35,21 +47,27 @@ void setup()
     }
 
     /* Reset ModuleLLM */
-    M5.Display.printf(">> Reset ModuleLLM..\n");
+    M5.Display.fillRect(0, (M5.Display.height() / 2) - 10, 320, 25, BLACK);
+    M5.Display.drawString("Reset ModuleLLM..", M5.Display.width() / 2, M5.Display.height() / 2);
     module_llm.sys.reset();
 
     /* Setup Camera module */
-    M5.Display.printf(">> Setup camera..\n");
+    M5.Display.fillRect(0, (M5.Display.height() / 2) - 10, 320, 25, BLACK);
+    M5.Display.drawString("Setup camera..", M5.Display.width() / 2, M5.Display.height() / 2);
     camera_work_id = module_llm.camera.setup();
 
     /* Setup YOLO module and save returned work id */
-    M5.Display.printf(">> Setup yolo..\n");
+    M5.Display.fillRect(0, (M5.Display.height() / 2) - 10, 320, 25, BLACK);
+    M5.Display.drawString("Setup yolo..", M5.Display.width() / 2, M5.Display.height() / 2);
     m5_module_llm::ApiYoloSetupConfig_t yolo_config;
     yolo_config.input = {camera_work_id};
     yolo_work_id      = module_llm.yolo.setup(yolo_config, "yolo_setup");
-    // M5.Display.printf(">> Yolo ready\n");
-    M5.Display.drawString("class", 10, 80);
-    M5.Display.drawString("confidence", 180, 80);
+
+    M5.Display.fillRect(0, (M5.Display.height() / 2) - 10, 320, 25, BLACK);
+
+    M5.Display.setTextDatum(top_left);
+    M5.Display.drawString("class", 10, 20);
+    M5.Display.drawString("confidence", 10, 80);
     M5.Display.drawString("x1", 10, 110);
     M5.Display.drawString("y1", 10, 140);
     M5.Display.drawString("x2", 10, 170);
@@ -83,20 +101,18 @@ void loop()
                         int y1 = bboxArray[1].as<int>();
                         int x2 = bboxArray[2].as<int>();
                         int y2 = bboxArray[3].as<int>();
-                        M5.Display.drawString(class_name, 80, 80);
-                        M5.Display.drawFloat(confidence, 2, 200, 110);
+
+                        clearDisplay();
+
+                        M5.Display.drawString(class_name, 40, 50);
+                        M5.Display.drawFloat(confidence, 2, 150, 80);
                         M5.Display.drawNumber(x1, 40, 110);
                         M5.Display.drawNumber(y1, 40, 140);
                         M5.Display.drawNumber(x2, 40, 170);
                         M5.Display.drawNumber(y2, 40, 200);
                     }
                 } else {
-                    M5.Display.drawString("None", 80, 80);
-                    M5.Display.drawFloat(0, 2, 200, 110);
-                    M5.Display.drawNumber(0, 40, 110);
-                    M5.Display.drawNumber(0, 40, 140);
-                    M5.Display.drawNumber(0, 40, 170);
-                    M5.Display.drawNumber(0, 40, 200);
+                    clearDisplay();
                 }
             }
         }
