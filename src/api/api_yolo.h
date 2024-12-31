@@ -29,6 +29,14 @@ public:
     String setup(ApiYoloSetupConfig_t config = ApiYoloSetupConfig_t(), String request_id = "yolo_setup");
 
     /**
+     * @brief Exit module YOLO, return YOLO work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "yolo_exit");
+    /**
      * @brief Inference input data by module LLM
      *
      * @param raw_len
