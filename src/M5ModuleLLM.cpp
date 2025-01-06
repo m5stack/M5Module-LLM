@@ -12,6 +12,7 @@ bool M5ModuleLLM::begin(Stream* serialPort)
     msg.init(&comm);
     sys.init(&msg);
     llm.init(&msg);
+    vlm.init(&msg);
     audio.init(&msg);
     tts.init(&msg);
     melotts.init(&msg);
@@ -19,6 +20,7 @@ bool M5ModuleLLM::begin(Stream* serialPort)
     asr.init(&msg);
     yolo.init(&msg);
     camera.init(&msg);
+    depthanything.init(&msg);
     return true;
 }
 
