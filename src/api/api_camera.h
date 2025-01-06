@@ -22,13 +22,22 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module camera, return work_id
+     * @brief Setup module camera, return camera work_id
      *
      * @param config
      * @param request_id
      * @return String
      */
     String setup(ApiCameraSetupConfig_t config = ApiCameraSetupConfig_t(), String request_id = "camera_setup");
+
+    /**
+     * @brief Exit module camera, return camera work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "camera_exit");
 
 private:
     ModuleMsg* _module_msg = nullptr;

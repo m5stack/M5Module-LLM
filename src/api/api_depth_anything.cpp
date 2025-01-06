@@ -3,24 +3,24 @@
  *
  * SPDX-License-Identifier: MIT
  */
-#include "api_yolo.h"
+#include "api_depth_anything.h"
 
 using namespace m5_module_llm;
 
-void ApiYolo::init(ModuleMsg* moduleMsg)
+void ApiDepthAnything::init(ModuleMsg* moduleMsg)
 {
     _module_msg = moduleMsg;
 }
 
-String ApiYolo::setup(ApiYoloSetupConfig_t config, String request_id)
+String ApiDepthAnything::setup(ApiDepthAnythingSetupConfig_t config, String request_id)
 {
     String cmd;
     {
         JsonDocument doc;
         doc["request_id"]              = request_id;
-        doc["work_id"]                 = "yolo";
+        doc["work_id"]                 = "depth_anything";
         doc["action"]                  = "setup";
-        doc["object"]                  = "yolo.setup";
+        doc["object"]                  = "depth_anything.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
         JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
@@ -42,7 +42,7 @@ String ApiYolo::setup(ApiYoloSetupConfig_t config, String request_id)
     return work_id;
 }
 
-String ApiYolo::exit(String work_id, String request_id)
+String ApiDepthAnything::exit(String work_id, String request_id)
 {
     String cmd;
     {
@@ -63,7 +63,7 @@ String ApiYolo::exit(String work_id, String request_id)
     return work_id;
 }
 
-int ApiYolo::inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id)
+int ApiDepthAnything::inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id)
 {
     String cmd;
     {
@@ -81,8 +81,8 @@ int ApiYolo::inference(String& work_id, uint8_t* input, size_t& raw_len, String 
     return MODULE_LLM_OK;
 }
 
-int ApiYolo::inferenceAndWaitResult(String& work_id, uint8_t* input, size_t& raw_len,
-                                    std::function<void(String&)> onResult, uint32_t timeout, String request_id)
+int ApiDepthAnything::inferenceAndWaitResult(String& work_id, uint8_t* input, size_t& raw_len,
+                                             std::function<void(String&)> onResult, uint32_t timeout, String request_id)
 {
     inference(work_id, input, raw_len, request_id);
 

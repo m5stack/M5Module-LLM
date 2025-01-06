@@ -23,13 +23,22 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module audio, return work_id
+     * @brief Setup module audio, return audio work_id
      *
      * @param config
      * @param request_id
      * @return String
      */
     String setup(ApiAudioSetupConfig_t config = ApiAudioSetupConfig_t(), String request_id = "audio_setup");
+
+    /**
+     * @brief Exit module audio, return audio work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "audio_exit");
 
 private:
     ModuleMsg* _module_msg = nullptr;

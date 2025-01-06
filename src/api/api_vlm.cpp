@@ -3,46 +3,55 @@
  *
  * SPDX-License-Identifier: MIT
  */
-#include "api_yolo.h"
+#include "api_vlm.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
-void ApiYolo::init(ModuleMsg* moduleMsg)
+void ApiVlm::init(ModuleMsg* moduleMsg)
 {
     _module_msg = moduleMsg;
 }
 
-String ApiYolo::setup(ApiYoloSetupConfig_t config, String request_id)
+String ApiVlm::setup(ApiVlmSetupConfig_t config, String request_id)
 {
     String cmd;
     {
         JsonDocument doc;
         doc["request_id"]              = request_id;
-        doc["work_id"]                 = "yolo";
+        doc["work_id"]                 = "vlm";
         doc["action"]                  = "setup";
-        doc["object"]                  = "yolo.setup";
+        doc["object"]                  = "vlm.setup";
         doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
-        for (const String& str : config.input) {
-            inputArray.add(str);
+        doc["data"]["enoutput"]        = config.enoutput;
+        doc["data"]["enkws"]           = config.enkws;
+        doc["data"]["max_token_len"]   = config.max_token_len;
+        doc["data"]["prompt"]          = config.prompt;
+        if (!llm_version) {
+            doc["data"]["model"] = "qwen2.5-0.5b";
+            doc["data"]["input"] = config.input[0];
+        } else {
+            JsonArray inputArray = doc["data"]["input"].to<JsonArray>();
+            for (const String& str : config.input) {
+                inputArray.add(str);
+            }
         }
-        doc["data"]["enoutput"] = config.enoutput;
         serializeJson(doc, cmd);
     }
 
-    String work_id;
+    String llm_work_id;
     _module_msg->sendCmdAndWaitToTakeMsg(
         cmd.c_str(), request_id,
-        [&work_id](ResponseMsg_t& msg) {
+        [&llm_work_id](ResponseMsg_t& msg) {
             // Copy work id
-            work_id = msg.work_id;
+            llm_work_id = msg.work_id;
         },
-        5000);
-    return work_id;
+        20000);
+    return llm_work_id;
 }
 
-String ApiYolo::exit(String work_id, String request_id)
+String ApiVlm::exit(String work_id, String request_id)
 {
     String cmd;
     {
@@ -63,28 +72,29 @@ String ApiYolo::exit(String work_id, String request_id)
     return work_id;
 }
 
-int ApiYolo::inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id)
+int ApiVlm::inference(String work_id, String input, String request_id)
 {
     String cmd;
     {
         JsonDocument doc;
-        doc["RAW"]        = raw_len;
-        doc["request_id"] = request_id;
-        doc["work_id"]    = work_id;
-        doc["action"]     = "inference";
-        doc["object"]     = "cv.jpeg.base64";
+        doc["request_id"]     = request_id;
+        doc["work_id"]        = work_id;
+        doc["action"]         = "inference";
+        doc["object"]         = "vlm.utf-8.stream";
+        doc["data"]["delta"]  = input;
+        doc["data"]["index"]  = 0;
+        doc["data"]["finish"] = true;
         serializeJson(doc, cmd);
     }
 
     _module_msg->sendCmd(cmd.c_str());
-    _module_msg->sendRaw(input, raw_len);
     return MODULE_LLM_OK;
 }
 
-int ApiYolo::inferenceAndWaitResult(String& work_id, uint8_t* input, size_t& raw_len,
-                                    std::function<void(String&)> onResult, uint32_t timeout, String request_id)
+int ApiVlm::inferenceAndWaitResult(String work_id, String input, std::function<void(String&)> onResult,
+                                   uint32_t timeout, String request_id)
 {
-    inference(work_id, input, raw_len, request_id);
+    inference(work_id, input, request_id);
 
     uint32_t time_out_count = millis();
     bool is_time_out        = false;
