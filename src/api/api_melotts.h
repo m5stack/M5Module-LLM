@@ -38,7 +38,7 @@ public:
      * @param request_id
      * @return String
      */
-    String exit(String work_id, String request_id = "yolo_exit");
+    String exit(String work_id, String request_id = "tts_exit");
 
     /**
      * @brief Inference input data by TTS module

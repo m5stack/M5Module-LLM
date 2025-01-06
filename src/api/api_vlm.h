@@ -25,7 +25,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module LLM, return LLM work_id
+     * @brief Setup module VLLM, return VLLM work_id
      *
      * @param config
      * @param request_id
@@ -34,7 +34,7 @@ public:
     String setup(ApiVlmSetupConfig_t config = ApiVlmSetupConfig_t(), String request_id = "vlm_setup");
 
     /**
-     * @brief Exit module YOLO, return YOLO work_id
+     * @brief Exit module VLLM, return VLLM work_id
      *
      * @param work_id
      * @param request_id
@@ -43,7 +43,7 @@ public:
     String exit(String work_id, String request_id = "vlm_exit");
 
     /**
-     * @brief Inference input data by module LLM
+     * @brief Inference input data by module VLLM
      *
      * @param work_id
      * @param input
@@ -53,7 +53,7 @@ public:
     int inference(String work_id, String input, String request_id = "vlm_inference");
 
     /**
-     * @brief Inference input data by module LLM, and wait inference result
+     * @brief Inference input data by module VLLM, and wait inference result
      *
      * @param work_id
      * @param input

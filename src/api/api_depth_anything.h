@@ -20,7 +20,7 @@ public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module YOLO, return YOLO work_id
+     * @brief Setup module DepthAnything, return DepthAnything work_id
      *
      * @param config
      * @param request_id
@@ -28,6 +28,15 @@ public:
      */
     String setup(ApiDepthAnythingSetupConfig_t config = ApiDepthAnythingSetupConfig_t(),
                  String request_id                    = "depth_anything_setup");
+
+    /**
+     * @brief Exit module DepthAnything, return DepthAnything work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "depth_anything_exit");
 
     /**
      * @brief Inference input data by module LLM

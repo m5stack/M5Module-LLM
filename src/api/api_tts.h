@@ -33,6 +33,15 @@ public:
                  String language = "en_US");
 
     /**
+     * @brief Exit module TTS, return TTS work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "tts_exit");
+
+    /**
      * @brief Inference input data by TTS module
      *
      * @param work_id

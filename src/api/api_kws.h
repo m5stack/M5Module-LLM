@@ -31,6 +31,15 @@ public:
     String setup(ApiKwsSetupConfig_t config = ApiKwsSetupConfig_t(), String request_id = "kws_setup",
                  String language = "en_US");
 
+    /**
+     * @brief Exit module KWS, return KWS work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "kws_exit");
+
 private:
     ModuleMsg* _module_msg = nullptr;
 };

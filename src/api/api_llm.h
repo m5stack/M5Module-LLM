@@ -34,6 +34,15 @@ public:
     String setup(ApiLlmSetupConfig_t config = ApiLlmSetupConfig_t(), String request_id = "llm_setup");
 
     /**
+     * @brief Exit module LLM, return LLM work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "llm_exit");
+
+    /**
      * @brief Inference input data by module LLM
      *
      * @param work_id
