@@ -7,6 +7,8 @@
 #include <ArduinoJson.h>
 
 using namespace m5_module_llm;
+const size_t JSON_BUFFER_SIZE = 2048;
+char jsonBuffer[JSON_BUFFER_SIZE];
 
 bool ModuleComm::init(Stream* serialPort)
 {
@@ -34,6 +36,7 @@ void ModuleComm::sendRaw(const uint8_t* data, size_t& raw_len)
 ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 {
     Respond_t ret;
+    String buffer;
 
     uint32_t time_out_count = millis();
     bool get_msg            = false;
@@ -43,7 +46,13 @@ ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
         if (_serial->available()) {
             get_msg = true;
             while (_serial->available()) {
-                ret.msg += (char)_serial->read();
+                char c = (char)_serial->read();
+                buffer += c;
+
+                if (c == '\n') {
+                    ret.msg = buffer;
+                    return ret;;
+                }
             }
             get_msg_count  = millis();
             time_out_count = millis();
@@ -62,7 +71,7 @@ ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
             break;
         }
 
-        delay(5);
+        // delay(5);
     }
 
     return ret;
