@@ -25,9 +25,12 @@ void setup()
     CommSerialPort.begin(115200);
 
     /* Init module serial port */
-    Serial2.begin(115200, SERIAL_8N1, 16, 17);  // Basic
-    // Serial2.begin(115200, SERIAL_8N1, 13, 14);  // Core2
-    // Serial2.begin(115200, SERIAL_8N1, 18, 17);  // CoreS3
+    // int rxd = 16, txd = 17;  // Basic
+    // int rxd = 13, txd = 14;  // Core2
+    // int rxd = 18, txd = 17;  // CoreS3
+    int rxd = M5.getPin(m5::pin_name_t::port_c_rxd);
+    int txd = M5.getPin(m5::pin_name_t::port_c_txd);
+    Serial2.begin(115200, SERIAL_8N1, rxd, txd);
 
     /* Init module */
     module_llm.begin(&Serial2);
