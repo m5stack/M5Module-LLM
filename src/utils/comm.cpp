@@ -51,7 +51,7 @@ ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 
                 if (c == '\n') {
                     ret.msg = buffer;
-                    return ret;;
+                    return ret;
                 }
             }
             get_msg_count  = millis();
