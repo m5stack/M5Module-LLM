@@ -23,6 +23,7 @@ void setup()
     M5.Display.setTextSize(2);
     M5.Display.setTextScroll(true);
     // M5.Display.setFont(&fonts::efontCN_12);  // Support Chinese display
+    // M5.Display.setFont(&fonts::efontJA_12);  // Support Japanese display
 
     language = "en_US";
     // language = "zh_CN";
