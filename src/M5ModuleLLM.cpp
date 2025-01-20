@@ -20,6 +20,8 @@ bool M5ModuleLLM::begin(Stream* serialPort)
     asr.init(&msg);
     yolo.init(&msg);
     camera.init(&msg);
+    vad.init(&msg);
+    whisper.init(&msg);
     depthanything.init(&msg);
     return true;
 }

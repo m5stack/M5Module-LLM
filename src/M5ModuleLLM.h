@@ -18,6 +18,8 @@
 #include "api/api_yolo.h"
 #include "api/api_depth_anything.h"
 #include "api/api_camera.h"
+#include "api/api_vad.h"
+#include "api/api_whisper.h"
 #include "api/api_version.h"
 
 class M5ModuleLLM {
@@ -104,6 +106,18 @@ public:
      *
      */
     m5_module_llm::ApiYolo yolo;
+
+    /**
+     * @brief VAD module api set
+     *
+     */
+    m5_module_llm::ApiVad vad;
+
+    /**
+     * @brief Whisper module api set
+     *
+     */
+    m5_module_llm::ApiWhisper whisper;
 
     /**
      * @brief DepthAnything module api set
