@@ -122,5 +122,8 @@ void loop()
     }
 
     /* Clear handled messages */
+    module_llm.msg.clearMsg("yolo_setup");
     module_llm.msg.responseMsgList.clear();
+
+    usleep(500000);
 }
