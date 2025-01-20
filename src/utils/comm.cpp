@@ -71,7 +71,7 @@ ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
             break;
         }
 
-        // delay(5);
+        delay(5);
     }
 
     return ret;
