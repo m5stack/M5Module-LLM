@@ -8,34 +8,35 @@
 #include <Arduino.h>
 
 namespace m5_module_llm {
-struct ApiYoloSetupConfig_t {
-    String model              = "yolo11n";
-    String response_format    = "yolo.box.stream";
-    std::vector<String> input = {"yolo.jpeg.base64"};
+struct ApiDepthAnythingSetupConfig_t {
+    String model              = "depth_anything";
+    String response_format    = "jpeg.base64.stream";
+    std::vector<String> input = {"depth_anything.jpeg.raw"};
     bool enoutput             = true;
 };
 
-class ApiYolo {
+class ApiDepthAnything {
 public:
     void init(ModuleMsg* moduleMsg);
 
     /**
-     * @brief Setup module YOLO, return YOLO work_id
+     * @brief Setup module DepthAnything, return DepthAnything work_id
      *
      * @param config
      * @param request_id
      * @return String
      */
-    String setup(ApiYoloSetupConfig_t config = ApiYoloSetupConfig_t(), String request_id = "yolo_setup");
+    String setup(ApiDepthAnythingSetupConfig_t config = ApiDepthAnythingSetupConfig_t(),
+                 String request_id                    = "depth_anything_setup");
 
     /**
-     * @brief Exit module YOLO, return YOLO work_id
+     * @brief Exit module DepthAnything, return DepthAnything work_id
      *
      * @param work_id
      * @param request_id
      * @return String
      */
-    String exit(String work_id, String request_id = "yolo_exit");
+    String exit(String work_id, String request_id = "depth_anything_exit");
 
     /**
      * @brief Inference input data by module LLM
@@ -46,7 +47,7 @@ public:
      * @param request_id
      * @return int
      */
-    int inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id = "yolo_inference");
+    int inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id = "depth_anything_inference");
 
     /**
      * @brief Inference input data by module LLM, and wait inference result
@@ -60,7 +61,7 @@ public:
      * @return int
      */
     int inferenceAndWaitResult(String& work_id, uint8_t* input, size_t& raw_len, std::function<void(String&)> onResult,
-                               uint32_t timeout = 5000, String request_id = "yolo_inference");
+                               uint32_t timeout = 5000, String request_id = "depth_anything_inference");
 
 private:
     ModuleMsg* _module_msg = nullptr;

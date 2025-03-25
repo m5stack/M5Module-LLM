@@ -34,6 +34,15 @@ public:
     String setup(ApiAsrSetupConfig_t config = ApiAsrSetupConfig_t(), String request_id = "asr_setup",
                  String language = "en_US");
 
+    /**
+     * @brief Exit module ASR, return ASR work_id
+     *
+     * @param work_id
+     * @param request_id
+     * @return String
+     */
+    String exit(String work_id, String request_id = "asr_exit");
+
 private:
     ModuleMsg* _module_msg = nullptr;
 };

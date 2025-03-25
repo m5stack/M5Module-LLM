@@ -9,13 +9,17 @@
 #include "utils/msg.h"
 #include "api/api_sys.h"
 #include "api/api_llm.h"
+#include "api/api_vlm.h"
 #include "api/api_audio.h"
 #include "api/api_tts.h"
 #include "api/api_melotts.h"
 #include "api/api_kws.h"
 #include "api/api_asr.h"
 #include "api/api_yolo.h"
+#include "api/api_depth_anything.h"
 #include "api/api_camera.h"
+#include "api/api_vad.h"
+#include "api/api_whisper.h"
 #include "api/api_version.h"
 
 class M5ModuleLLM {
@@ -54,6 +58,12 @@ public:
      *
      */
     m5_module_llm::ApiLlm llm;
+
+    /**
+     * @brief VLM module api set
+     *
+     */
+    m5_module_llm::ApiVlm vlm;
 
     /**
      * @brief Audio module api set
@@ -96,6 +106,24 @@ public:
      *
      */
     m5_module_llm::ApiYolo yolo;
+
+    /**
+     * @brief VAD module api set
+     *
+     */
+    m5_module_llm::ApiVad vad;
+
+    /**
+     * @brief Whisper module api set
+     *
+     */
+    m5_module_llm::ApiWhisper whisper;
+
+    /**
+     * @brief DepthAnything module api set
+     *
+     */
+    m5_module_llm::ApiDepthAnything depthanything;
 
     /**
      * @brief MSG module to handle module response message

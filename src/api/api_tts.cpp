@@ -52,6 +52,27 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String langu
     return work_id;
 }
 
+String ApiTts::exit(String work_id, String request_id)
+{
+    String cmd;
+    {
+        JsonDocument doc;
+        doc["request_id"] = request_id;
+        doc["work_id"]    = work_id;
+        doc["action"]     = "exit";
+        serializeJson(doc, cmd);
+    }
+
+    _module_msg->sendCmdAndWaitToTakeMsg(
+        cmd.c_str(), request_id,
+        [&work_id](ResponseMsg_t& msg) {
+            // Copy work id
+            work_id = msg.work_id;
+        },
+        100);
+    return work_id;
+}
+
 int ApiTts::inference(String work_id, String input, uint32_t timeout, String request_id)
 {
     String cmd;

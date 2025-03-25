@@ -3,29 +3,31 @@
  *
  * SPDX-License-Identifier: MIT
  */
-#include "api_camera.h"
+#include "api_vad.h"
 
 using namespace m5_module_llm;
 
-void ApiCamera::init(ModuleMsg* moduleMsg)
+void ApiVad::init(ModuleMsg* moduleMsg)
 {
     _module_msg = moduleMsg;
 }
 
-String ApiCamera::setup(ApiCameraSetupConfig_t config, String request_id)
+String ApiVad::setup(ApiVadSetupConfig_t config, String request_id)
 {
     String cmd;
     {
         JsonDocument doc;
         doc["request_id"]              = request_id;
-        doc["work_id"]                 = "camera";
+        doc["work_id"]                 = "vad";
         doc["action"]                  = "setup";
-        doc["object"]                  = "camera.setup";
+        doc["object"]                  = "vad.setup";
+        doc["data"]["model"]           = config.model;
         doc["data"]["response_format"] = config.response_format;
-        doc["data"]["input"]           = config.input;
         doc["data"]["enoutput"]        = config.enoutput;
-        doc["data"]["frame_width"]     = config.frame_width;
-        doc["data"]["frame_height"]    = config.frame_height;
+        JsonArray inputArray           = doc["data"]["input"].to<JsonArray>();
+        for (const String& str : config.input) {
+            inputArray.add(str);
+        }
         serializeJson(doc, cmd);
     }
 
@@ -36,11 +38,11 @@ String ApiCamera::setup(ApiCameraSetupConfig_t config, String request_id)
             // Copy work id
             work_id = msg.work_id;
         },
-        5000);
+        30000);
     return work_id;
 }
 
-String ApiCamera::exit(String work_id, String request_id)
+String ApiVad::exit(String work_id, String request_id)
 {
     String cmd;
     {
