@@ -47,7 +47,7 @@ String ApiVlm::setup(ApiVlmSetupConfig_t config, String request_id)
             // Copy work id
             llm_work_id = msg.work_id;
         },
-        20000);
+        30000);
     return llm_work_id;
 }
 
