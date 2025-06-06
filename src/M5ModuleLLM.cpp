@@ -33,6 +33,11 @@ bool M5ModuleLLM::checkConnection()
     return result;
 }
 
+bool M5ModuleLLM::setBaudRate(uint32_t baudRate)
+{
+    return sys.setBaudRate(baudRate) == MODULE_LLM_OK;
+}
+
 void M5ModuleLLM::update()
 {
     msg.update();

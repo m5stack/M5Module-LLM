@@ -45,6 +45,14 @@ public:
      */
     int reboot();
 
+    /**
+     * @brief Set module baud rate
+     *
+     * @return true
+     * @return false
+     */
+    int setBaudRate(uint32_t baudRate);
+
 private:
     ModuleMsg* _module_msg = nullptr;
 };

@@ -36,44 +36,35 @@ void ModuleComm::sendRaw(const uint8_t* data, size_t& raw_len)
 ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 {
     Respond_t ret;
+    ret.time_out = false; 
     String buffer;
+    uint32_t startTime = millis();
+    int openBraces = 0;
+    bool started = false;
 
-    uint32_t time_out_count = millis();
-    bool get_msg            = false;
-    uint32_t get_msg_count  = millis();
-    while (1) {
-        // Check input
-        if (_serial->available()) {
-            get_msg = true;
-            while (_serial->available()) {
-                char c = (char)_serial->read();
-                buffer += c;
-
-                if (c == '\n') {
+    while (millis() - startTime < timeout) {
+        while (_serial->available()) {
+            char c = (char)_serial->read();
+            buffer += c;
+            if (c == '{') {
+                started = true;
+                openBraces++;
+            } else if (c == '}') {
+                openBraces--;
+                if (started && openBraces == 0) {
                     ret.msg = buffer;
                     return ret;
                 }
             }
-            get_msg_count  = millis();
-            time_out_count = millis();
-        }
 
-        // Check package finish, if more than 50ms no input, treat it as a package
-        else if (get_msg) {
-            if (millis() - get_msg_count > 50) {
-                break;
+            if (c == '\n' && !started) {
+                ret.msg = buffer;
+                return ret;
             }
         }
-
-        // Check timeout
-        if (millis() - time_out_count > timeout) {
-            ret.time_out = true;
-            break;
-        }
-
-        delay(5);
+        delay(1);
     }
-
+    ret.time_out = true;
     return ret;
 }
 

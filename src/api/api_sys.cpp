@@ -52,8 +52,7 @@ int ApiSys::reset(bool waitResetFinish)
     if (waitResetFinish) {
         ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
         _module_msg->responseMsgList.clear();
-        _module_msg->waitAndTakeMsg(
-            "0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 15000);
+        _module_msg->waitAndTakeMsg("0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 15000);
     }
     return ret;
 }
@@ -63,5 +62,19 @@ int ApiSys::reboot()
     int ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
     _module_msg->sendCmdAndWaitToTakeMsg(
         _cmd_reboot, "sys_reboot", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 2000);
+    return ret;
+}
+
+int ApiSys::setBaudRate(uint32_t baudRate)
+{
+    int ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
+    String cmd =
+        "{\"request_id\":\"1\",\"work_id\":\"sys\",\"action\":\"uartsetup\",\"object\":\"sys.uartsetup\",\"data\":{"
+        "\"baud\":";
+    cmd += baudRate;
+    cmd += ",\"data_bits\":8,\"stop_bits\":1,\"parity\":\"n\"}}";
+
+    _module_msg->sendCmdAndWaitToTakeMsg(
+        cmd.c_str(), "sys_set_baudrate", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 2000);
     return ret;
 }
