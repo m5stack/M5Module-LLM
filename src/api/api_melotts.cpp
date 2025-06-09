@@ -32,6 +32,8 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id, Stri
         if (version >= 1.6) {
             if (language == "zh_CN") {
                 doc["data"]["model"] = "melotts-zh-cn";
+            } else if (language == "ja_JP") {
+                doc["data"]["model"] = "melotts-ja-jp";
             } else {
                 doc["data"]["model"] = "melotts-en-default";
             }
