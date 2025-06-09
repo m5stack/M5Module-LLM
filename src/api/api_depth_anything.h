@@ -39,11 +39,11 @@ public:
     String exit(String work_id, String request_id = "depth_anything_exit");
 
     /**
-     * @brief Inference input data by module LLM
+     * @brief Inference image data by module LLM
      *
-     * @param raw_len
      * @param work_id
      * @param input
+     * @param raw_len
      * @param request_id
      * @return int
      */

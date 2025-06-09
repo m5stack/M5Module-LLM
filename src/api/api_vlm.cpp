@@ -37,6 +37,8 @@ String ApiVlm::setup(ApiVlmSetupConfig_t config, String request_id)
                 inputArray.add(str);
             }
         }
+        float version = llm_version.substring(1).toFloat();
+        if (version >= 1.6) doc["data"]["model"] = "internvl2.5-1B-364-ax630c";
         serializeJson(doc, cmd);
     }
 
@@ -88,6 +90,24 @@ int ApiVlm::inference(String work_id, String input, String request_id)
     }
 
     _module_msg->sendCmd(cmd.c_str());
+    return MODULE_LLM_OK;
+}
+
+int ApiVlm::inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id)
+{
+    String cmd;
+    {
+        JsonDocument doc;
+        doc["RAW"]        = raw_len;
+        doc["request_id"] = request_id;
+        doc["work_id"]    = work_id;
+        doc["action"]     = "inference";
+        doc["object"]     = "cv.jpeg.base64";
+        serializeJson(doc, cmd);
+    }
+
+    _module_msg->sendCmd(cmd.c_str());
+    _module_msg->sendRaw(input, raw_len);
     return MODULE_LLM_OK;
 }
 

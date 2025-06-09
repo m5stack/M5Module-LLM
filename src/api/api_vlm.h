@@ -53,6 +53,17 @@ public:
     int inference(String work_id, String input, String request_id = "vlm_inference");
 
     /**
+     * @brief Inference image data by module LLM
+     *
+     * @param work_id
+     * @param input
+     * @param raw_len
+     * @param request_id
+     * @return int
+     */
+    int inference(String& work_id, uint8_t* input, size_t& raw_len, String request_id = "vlm_inference");
+
+    /**
      * @brief Inference input data by module VLLM, and wait inference result
      *
      * @param work_id
