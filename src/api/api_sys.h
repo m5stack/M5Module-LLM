@@ -27,13 +27,13 @@ public:
      * @return int
      */
 
-    int version();
+    String version();
 
     /**
      * @brief Check version
      *
      * @param waitCheckFinish
-     * @return int
+     * @return string
      */
 
     int reset(bool waitResetFinish = true);

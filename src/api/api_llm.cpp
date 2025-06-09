@@ -28,7 +28,7 @@ String ApiLlm::setup(ApiLlmSetupConfig_t config, String request_id)
         doc["data"]["enkws"]           = config.enkws;
         doc["data"]["max_token_len"]   = config.max_token_len;
         doc["data"]["prompt"]          = config.prompt;
-        if (!llm_version) {
+        if (llm_version == "v1.0") {
             doc["data"]["model"] = "qwen2.5-0.5b";
             doc["data"]["input"] = config.input[0];
         } else {

@@ -5,4 +5,4 @@
  */
 #include "api_version.h"
 
-int llm_version = 0;
+String llm_version = "v1.3";

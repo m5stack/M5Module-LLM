@@ -29,12 +29,22 @@ int ApiSys::ping()
     return ret;
 }
 
-int ApiSys::version()
+String ApiSys::version()
 {
+    String version_str;
     int ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
     _module_msg->sendCmdAndWaitToTakeMsg(
-        _cmd_version, "sys_version", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 2000);
-    return ret;
+        _cmd_version, "sys_version",
+        [&version_str, &ret](ResponseMsg_t& msg) {
+            ret = msg.error.code;
+            if (ret == MODULE_LLM_OK) {
+                JsonDocument doc;
+                deserializeJson(doc, msg.raw_msg);
+                version_str = doc["data"].as<String>();
+            }
+        },
+        2000);
+    return version_str;
 }
 
 int ApiSys::reset(bool waitResetFinish)
@@ -52,7 +62,7 @@ int ApiSys::reset(bool waitResetFinish)
     if (waitResetFinish) {
         ret = MODULE_LLM_WAIT_RESPONSE_TIMEOUT;
         _module_msg->responseMsgList.clear();
-        _module_msg->waitAndTakeMsg("0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 15000);
+        _module_msg->waitAndTakeMsg("0", [&ret](ResponseMsg_t& msg) { ret = msg.error.code; }, 5000);
     }
     return ret;
 }

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 #include "api_melotts.h"
+#include "api_version.h"
 
 using namespace m5_module_llm;
 
@@ -27,7 +28,18 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id, Stri
         for (const String& str : config.input) {
             inputArray.add(str);
         }
-        if (language == "zh_CN") doc["data"]["model"] = "melotts_zh-cn";
+        float version = llm_version.substring(1).toFloat();
+        if (version >= 1.6) {
+            if (language == "zh_CN") {
+                doc["data"]["model"] = "melotts-zh-cn";
+            } else {
+                doc["data"]["model"] = "melotts-en-default";
+            }
+        } else {
+            if (language == "zh_CN") {
+                doc["data"]["model"] = "melotts_zh-cn";
+            }
+        }
         doc["data"]["enoutput"] = config.enoutput;
         doc["data"]["enaudio"]  = config.enaudio;
         serializeJson(doc, cmd);
