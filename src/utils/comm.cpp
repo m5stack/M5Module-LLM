@@ -36,11 +36,11 @@ void ModuleComm::sendRaw(const uint8_t* data, size_t& raw_len)
 ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 {
     Respond_t ret;
-    ret.time_out = false; 
+    ret.time_out = false;
     String buffer;
     uint32_t startTime = millis();
-    int openBraces = 0;
-    bool started = false;
+    int openBraces     = 0;
+    bool started       = false;
 
     while (millis() - startTime < timeout) {
         while (_serial->available()) {
