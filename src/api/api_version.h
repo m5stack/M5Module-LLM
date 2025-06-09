@@ -4,5 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 #pragma once
+#include "../utils/msg.h"
 
-extern int llm_version;
+extern String llm_version;

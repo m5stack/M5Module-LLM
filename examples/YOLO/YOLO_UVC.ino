@@ -91,13 +91,12 @@ void loop()
                 /* Parse message json and get YOLO result */
                 JsonDocument doc;
                 deserializeJson(doc, msg.raw_msg);
-                JsonArray delta = doc["data"]["delta"].as<JsonArray>();
+                JsonObject delta = doc["data"]["delta"].as<JsonObject>();
 
-                if (delta.size() > 0) {
-                    JsonObject result   = delta[0].as<JsonObject>();
-                    String class_name   = result["class"].as<String>();
-                    float confidence    = result["confidence"].as<float>();
-                    JsonArray bboxArray = result["bbox"].as<JsonArray>();
+                if (delta.containsKey("bbox") && delta.containsKey("class") && delta.containsKey("confidence")) {
+                    String class_name   = delta["class"].as<String>();
+                    float confidence    = delta["confidence"].as<float>();
+                    JsonArray bboxArray = delta["bbox"].as<JsonArray>();
 
                     if (bboxArray.size() == 4) {
                         int x1 = bboxArray[0].as<int>();
@@ -125,5 +124,5 @@ void loop()
     module_llm.msg.clearMsg("yolo_setup");
     module_llm.msg.responseMsgList.clear();
 
-    usleep(500000);
+    // usleep(500000);
 }
