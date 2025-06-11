@@ -29,6 +29,7 @@ void setup()
 
     language = "en_US";
     // language = "zh_CN";
+    // language = "ja_JP";
 
     /* Init module serial port */
     // int rxd = 16, txd = 17;  // Basic
