@@ -28,9 +28,6 @@ void setup()
     M5.Display.setTextScroll(true);
 
     /* Init module serial port */
-    // int rxd = 16, txd = 17;  // Basic
-    // int rxd = 13, txd = 14;  // Core2
-    // int rxd = 18, txd = 17;  // CoreS3
     int rxd = M5.getPin(m5::pin_name_t::port_c_rxd);
     int txd = M5.getPin(m5::pin_name_t::port_c_txd);
     Serial2.begin(115200, SERIAL_8N1, rxd, txd);
@@ -123,6 +120,4 @@ void loop()
     /* Clear handled messages */
     module_llm.msg.clearMsg("yolo_setup");
     module_llm.msg.responseMsgList.clear();
-
-    // usleep(500000);
 }
