@@ -74,7 +74,6 @@ DetectionResult parseDetection(String& jsonStr)
     JsonDocument doc;
     deserializeJson(doc, jsonStr);
     JsonObject obj = doc.as<JsonObject>();
-    USBSerial.println(jsonStr);
     if (obj["bbox"].is<JsonArray>() && obj["class"].is<const char*>() && obj["confidence"].is<const char*>()) {
         detection.class_name = obj["class"].as<const char*>();
         detection.confidence = atof(obj["confidence"].as<const char*>());
