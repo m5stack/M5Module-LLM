@@ -26,7 +26,7 @@ String ApiKws::setup(ApiKwsSetupConfig_t config, String request_id, String langu
         doc["data"]["response_format"] = config.response_format;
         doc["data"]["enoutput"]        = config.enoutput;
         doc["data"]["kws"]             = config.kws;
-        if (!llm_version) {
+        if (llm_version == "v1.0") {
             doc["data"]["input"] = config.input[0];
         } else {
             JsonArray inputArray = doc["data"]["input"].to<JsonArray>();

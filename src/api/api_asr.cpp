@@ -29,7 +29,7 @@ String ApiAsr::setup(ApiAsrSetupConfig_t config, String request_id, String langu
         doc["data"]["rule1"]           = config.rule1;
         doc["data"]["rule2"]           = config.rule2;
         doc["data"]["rule3"]           = config.rule3;
-        if (!llm_version) {
+        if (llm_version == "v1.0") {
             doc["data"]["input"] = config.input[0];
         } else {
             JsonArray inputArray = doc["data"]["input"].to<JsonArray>();

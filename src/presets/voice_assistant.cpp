@@ -60,7 +60,7 @@ int M5ModuleLLM_VoiceAssistant::begin(String wakeUpKeyword, String prompt, Strin
 
     _debug("setup module tts..");
     {
-        if (!llm_version) {
+        if (llm_version == "v1.0") {
             ApiTtsSetupConfig_t config;
             config.input = {_work_id.llm, _work_id.kws};
             _work_id.tts = _m5_module_llm->tts.setup(config, "tts_setup", language);

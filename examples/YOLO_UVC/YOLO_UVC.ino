@@ -28,9 +28,6 @@ void setup()
     M5.Display.setTextScroll(true);
 
     /* Init module serial port */
-    // int rxd = 16, txd = 17;  // Basic
-    // int rxd = 13, txd = 14;  // Core2
-    // int rxd = 18, txd = 17;  // CoreS3
     int rxd = M5.getPin(m5::pin_name_t::port_c_rxd);
     int txd = M5.getPin(m5::pin_name_t::port_c_txd);
     Serial2.begin(115200, SERIAL_8N1, rxd, txd);
@@ -91,13 +88,12 @@ void loop()
                 /* Parse message json and get YOLO result */
                 JsonDocument doc;
                 deserializeJson(doc, msg.raw_msg);
-                JsonArray delta = doc["data"]["delta"].as<JsonArray>();
+                JsonObject delta = doc["data"]["delta"].as<JsonObject>();
 
-                if (delta.size() > 0) {
-                    JsonObject result   = delta[0].as<JsonObject>();
-                    String class_name   = result["class"].as<String>();
-                    float confidence    = result["confidence"].as<float>();
-                    JsonArray bboxArray = result["bbox"].as<JsonArray>();
+                if (delta.containsKey("bbox") && delta.containsKey("class") && delta.containsKey("confidence")) {
+                    String class_name   = delta["class"].as<String>();
+                    float confidence    = delta["confidence"].as<float>();
+                    JsonArray bboxArray = delta["bbox"].as<JsonArray>();
 
                     if (bboxArray.size() == 4) {
                         int x1 = bboxArray[0].as<int>();
@@ -124,6 +120,4 @@ void loop()
     /* Clear handled messages */
     module_llm.msg.clearMsg("yolo_setup");
     module_llm.msg.responseMsgList.clear();
-
-    usleep(500000);
 }

@@ -42,6 +42,14 @@ public:
     bool checkConnection();
 
     /**
+     * @brief Set module baud rate
+     *
+     * @return true
+     * @return false
+     */
+    bool setBaudRate(uint32_t baudRate);
+
+    /**
      * @brief Update module
      *
      */

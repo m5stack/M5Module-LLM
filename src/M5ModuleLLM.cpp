@@ -29,8 +29,13 @@ bool M5ModuleLLM::begin(Stream* serialPort)
 bool M5ModuleLLM::checkConnection()
 {
     const bool result = (sys.ping() == MODULE_LLM_OK);
-    llm_version       = (sys.version() == MODULE_LLM_OK);
+    llm_version       = sys.version();
     return result;
+}
+
+bool M5ModuleLLM::setBaudRate(uint32_t baudRate)
+{
+    return sys.setBaudRate(baudRate) == MODULE_LLM_OK;
 }
 
 void M5ModuleLLM::update()

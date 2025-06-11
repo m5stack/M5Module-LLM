@@ -27,7 +27,7 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String langu
         doc["data"]["enoutput"]        = config.enoutput;
         doc["data"]["enkws"]           = config.enkws;
         doc["data"]["enaudio"]         = config.enaudio;
-        if (!llm_version) {
+        if (llm_version == "v1.0") {
             doc["data"]["response_format"] = "tts.base64.wav";
             doc["data"]["input"]           = config.input[0];
             doc["data"]["enoutput"]        = true;
@@ -37,7 +37,18 @@ String ApiTts::setup(ApiTtsSetupConfig_t config, String request_id, String langu
                 inputArray.add(str);
             }
         }
-        if (language == "zh_CN") doc["data"]["model"] = "single_speaker_fast";
+        float version = llm_version.substring(1).toFloat();
+        if (version >= 1.6) {
+            if (language == "zh_CN") {
+                doc["data"]["model"] = "single-speaker-fast";
+            } else {
+                doc["data"]["model"] = "single-speaker-english-fast";
+            }
+        } else {
+            if (language == "zh_CN") {
+                doc["data"]["model"] = "single_speaker_fast";
+            }
+        }
         serializeJson(doc, cmd);
     }
 
