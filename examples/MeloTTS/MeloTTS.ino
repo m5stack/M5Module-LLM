@@ -63,6 +63,7 @@ void loop()
     i++;
     std::string text = std::to_string(i) + " plus " + std::to_string(i) + " equals " + std::to_string(i + i) + ".";
     // std::string text = std::to_string(i) + " 加 " + std::to_string(i) + " 等于 " + std::to_string(i + i) + ".";
+    // std::string text = std::to_string(i) + " 足す " + std::to_string(i) + " は " + std::to_string(i + i) + " です。";
 
     M5.Display.setTextColor(TFT_GREEN);
     M5.Display.printf("<< %s\n\n", text.c_str());
