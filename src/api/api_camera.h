@@ -15,6 +15,25 @@ struct ApiCameraSetupConfig_t {
     bool enoutput          = false;
     int frame_width        = 320;
     int frame_height       = 320;
+    std::map<String, String> extra_params;
+
+    template <typename T>
+    void setParam(const String& key, T value)
+    {
+        extra_params[key] = String(value);
+    }
+
+    void setParam(const String& key, bool value)
+    {
+        extra_params[key] = value ? "bool_true" : "bool_false";
+    }
+
+    void setParam(const String& key, float value)
+    {
+        char buffer[16];
+        dtostrf(value, 1, 6, buffer);
+        extra_params[key] = String(buffer);
+    }
 };
 
 class ApiCamera {
