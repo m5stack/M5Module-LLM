@@ -71,7 +71,7 @@ String ApiMelotts::setup(ApiMelottsSetupConfig_t config, String request_id, Stri
             // Copy work id
             work_id = msg.work_id;
         },
-        15000);
+        30000);
     return work_id;
 }
 
