@@ -28,6 +28,23 @@ String ApiVad::setup(ApiVadSetupConfig_t config, String request_id)
         for (const String& str : config.input) {
             inputArray.add(str);
         }
+
+        for (const auto& pair : config.extra_params) {
+            const String& key   = pair.first;
+            const String& value = pair.second;
+
+            if (value == "bool_true") {
+                doc["data"][key] = true;
+            } else if (value == "bool_false") {
+                doc["data"][key] = false;
+            } else if (value.indexOf('.') != -1) {
+                doc["data"][key] = value.toFloat();
+            } else if (value.length() > 0 && (isDigit(value.charAt(0)) || value.charAt(0) == '-')) {
+                doc["data"][key] = value.toInt();
+            } else {
+                doc["data"][key] = value;
+            }
+        }
         serializeJson(doc, cmd);
     }
 

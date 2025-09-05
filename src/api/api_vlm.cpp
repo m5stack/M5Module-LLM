@@ -39,6 +39,23 @@ String ApiVlm::setup(ApiVlmSetupConfig_t config, String request_id)
         }
         float version = llm_version.substring(1).toFloat();
         if (version >= 1.6) doc["data"]["model"] = "internvl2.5-1B-364-ax630c";
+
+        for (const auto& pair : config.extra_params) {
+            const String& key   = pair.first;
+            const String& value = pair.second;
+
+            if (value == "bool_true") {
+                doc["data"][key] = true;
+            } else if (value == "bool_false") {
+                doc["data"][key] = false;
+            } else if (value.indexOf('.') != -1) {
+                doc["data"][key] = value.toFloat();
+            } else if (value.length() > 0 && (isDigit(value.charAt(0)) || value.charAt(0) == '-')) {
+                doc["data"][key] = value.toInt();
+            } else {
+                doc["data"][key] = value;
+            }
+        }
         serializeJson(doc, cmd);
     }
 

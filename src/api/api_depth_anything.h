@@ -13,6 +13,25 @@ struct ApiDepthAnythingSetupConfig_t {
     String response_format    = "jpeg.base64.stream";
     std::vector<String> input = {"depth_anything.jpeg.raw"};
     bool enoutput             = true;
+    std::map<String, String> extra_params;
+
+    template <typename T>
+    void setParam(const String& key, T value)
+    {
+        extra_params[key] = String(value);
+    }
+
+    void setParam(const String& key, bool value)
+    {
+        extra_params[key] = value ? "bool_true" : "bool_false";
+    }
+
+    void setParam(const String& key, float value)
+    {
+        char buffer[16];
+        dtostrf(value, 1, 6, buffer);
+        extra_params[key] = String(buffer);
+    }
 };
 
 class ApiDepthAnything {

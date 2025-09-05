@@ -6,6 +6,7 @@
 #pragma once
 #include <Arduino.h>
 #include <vector>
+#include <map>
 
 namespace m5_module_llm {
 

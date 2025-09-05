@@ -15,6 +15,25 @@ struct ApiMelottsSetupConfig_t {
     std::vector<String> input = {"tts.utf-8.stream"};
     bool enoutput             = false;
     bool enaudio              = true;
+    std::map<String, String> extra_params;
+
+    template <typename T>
+    void setParam(const String& key, T value)
+    {
+        extra_params[key] = String(value);
+    }
+
+    void setParam(const String& key, bool value)
+    {
+        extra_params[key] = value ? "bool_true" : "bool_false";
+    }
+
+    void setParam(const String& key, float value)
+    {
+        char buffer[16];
+        dtostrf(value, 1, 6, buffer);
+        extra_params[key] = String(buffer);
+    }
 };
 
 class ApiMelotts {

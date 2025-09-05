@@ -13,6 +13,26 @@ struct ApiYoloSetupConfig_t {
     String response_format    = "yolo.box.stream";
     std::vector<String> input = {"yolo.jpeg.base64"};
     bool enoutput             = true;
+
+    std::map<String, String> extra_params;
+
+    template <typename T>
+    void setParam(const String& key, T value)
+    {
+        extra_params[key] = String(value);
+    }
+
+    void setParam(const String& key, bool value)
+    {
+        extra_params[key] = value ? "bool_true" : "bool_false";
+    }
+
+    void setParam(const String& key, float value)
+    {
+        char buffer[16];
+        dtostrf(value, 1, 6, buffer);
+        extra_params[key] = String(buffer);
+    }
 };
 
 class ApiYolo {

@@ -18,6 +18,26 @@ struct ApiAsrSetupConfig_t {
     float rule1               = 2.4;
     float rule2               = 1.2;
     float rule3               = 30.0;
+
+    std::map<String, String> extra_params;
+
+    template <typename T>
+    void setParam(const String& key, T value)
+    {
+        extra_params[key] = String(value);
+    }
+
+    void setParam(const String& key, bool value)
+    {
+        extra_params[key] = value ? "bool_true" : "bool_false";
+    }
+
+    void setParam(const String& key, float value)
+    {
+        char buffer[16];
+        dtostrf(value, 1, 6, buffer);
+        extra_params[key] = String(buffer);
+    }
 };
 
 class ApiAsr {
