@@ -37,29 +37,33 @@ ModuleComm::Respond_t ModuleComm::getResponse(uint32_t timeout)
 {
     Respond_t ret;
     ret.time_out = false;
-    String buffer;
+    static String buffer;
     uint32_t startTime = millis();
-    int openBraces     = 0;
+    static int openBraces     = 0;
     bool started       = false;
 
     while (millis() - startTime < timeout) {
         while (_serial->available()) {
             char c = (char)_serial->read();
-            buffer += c;
-            if (c == '{') {
-                started = true;
-                openBraces++;
-            } else if (c == '}') {
-                openBraces--;
-                if (started && openBraces == 0) {
-                    ret.msg = buffer;
-                    return ret;
+            if(c != '\n'){
+                buffer += c;
+                if(c == '{'){
+                    openBraces ++;
+                }else if (c == '}') {
+                    openBraces --;
+                    if(openBraces == 0){
+                        ret.msg = buffer;
+                        buffer.clear();
+                        return ret;
+                    }else if (openBraces < 0) {
+                        openBraces = 0;
+                        buffer.clear();
+                    }
                 }
             }
-
-            if (c == '\n' && !started) {
-                ret.msg = buffer;
-                return ret;
+            else{
+                openBraces = 0;
+                buffer.clear();
             }
         }
         delay(1);
@@ -96,3 +100,4 @@ void m5_module_llm::SerialPassthroughUpdate(Stream* port1, Stream* port2, bool p
         }
     }
 }
+
