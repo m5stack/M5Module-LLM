@@ -107,7 +107,7 @@ int ApiYolo::inferenceAndWaitResult(String& work_id, uint8_t* input, size_t& raw
     bool is_time_out        = false;
     bool is_msg_finish      = false;
     while (1) {
-        _module_msg->update();
+        _module_msg->update(timeout);
         _module_msg->takeMsg(request_id, [&time_out_count, &is_msg_finish, &onResult](ResponseMsg_t& msg) {
             String response_msg;
             {

@@ -52,7 +52,7 @@ struct ResponseMsg_t {
 class ModuleMsg {
 public:
     void init(ModuleComm* moduleComm);
-    void update();
+    void update(uint32_t timeout =50);
 
     inline void sendCmd(const char* cmd)
     {

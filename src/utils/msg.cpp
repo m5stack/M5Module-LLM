@@ -12,9 +12,9 @@ void ModuleMsg::init(ModuleComm* ModuleMsg)
     _module_comm = ModuleMsg;
 }
 
-void ModuleMsg::update()
+void ModuleMsg::update(uint32_t timeout)
 {
-    auto reponse = _module_comm->getResponse(50);
+    auto reponse = _module_comm->getResponse(timeout);
     if (reponse.time_out) {
         return;
     }
